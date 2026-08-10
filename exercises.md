@@ -49,16 +49,17 @@ docker images | grep chat
 
 | Bản | Dung lượng |
 |-----|-----------|
-| 1 stage (bản đầu) | Chưa đo riêng |
+| 1 stage (bản đầu) | 1.72 GB |
 | Multi-stage | 267 MB |
 
 Giải thích: phần dung lượng chênh lệch đó là những gì?
 
-> Tôi đo image multi-stage `day12-chat:cp2-test` được 267 MB. Tôi chưa lưu và
-> build riêng image một stage nên không ghi một số đo giả cho bản đó. Phần
-> chênh lệch chủ yếu sẽ là base image Python đầy đủ, công cụ build/compiler và
-> các file trung gian chỉ cần khi cài dependency. Multi-stage chỉ chép kết quả
-> cài đặt từ builder sang runtime dùng image slim.
+> Tôi đo image một stage `chat:single` được 1.72 GB và image multi-stage
+> `day12-chat:cp2-test` được 267 MB, giảm khoảng 1.45 GB. Phần chênh lệch chủ
+> yếu đến từ base image Python đầy đủ cùng những thành phần hệ thống không cần
+> cho runtime. Bản multi-stage dùng image `slim` và chỉ chép kết quả cài
+> dependency từ builder sang runtime, nên không mang toàn bộ môi trường build
+> vào image cuối.
 
 ---
 
